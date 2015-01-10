@@ -1,0 +1,30 @@
+runtime: python27
+api_version: 1
+threadsafe: yes
+
+
+handlers:
+- url: /(.*\.(css|js|png|gif|jpg|webm|ico|webp|svg|html))
+  static_files: \1
+  upload: .*\.(css|js|png|gif|jpg|webm|ico|webp|svg|html)
+  login: admin
+
+- url: /api/.*
+  script: main.APPLICATION
+  login: admin
+
+- url: /.*
+  static_files: index.html
+  upload: index.html
+  login: admin
+
+
+skip_files:
+# builtin defaults
+- ^(.*/)?#.*#$
+- ^(.*/)?.*~$
+- ^(.*/)?.*\.py[co]$
+- ^(.*/)?.*/RCS/.*$
+- ^(.*/)?\..*$
+# our custom entries
+- ^(.*/)?.*\.log$

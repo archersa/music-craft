@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+  </head>
+  <body>
+
+    <div class="content">
+
+      <ul class="links">
+        <li>
+          <form action="/api/create-instance" method="post" target="output">
+            <input type="submit" value="/api/create-instance">
+          </form>
+        </li>
+        <li>
+          <form action="/api/delete-instance" method="post" target="output">
+            <input type="submit" value="/api/delete-instance">
+          </form>
+        </li>
+      </ul>
+
+      <iframe name="output" class="output" src="/api/ping"></iframe>
+
+    </div>
+  </body>
+</html>

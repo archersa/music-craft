@@ -1,0 +1,19 @@
+html,body{
+  height: 100%;
+  margin: 0;
+}
+
+.content{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.links{
+  flex-grow: 0;
+}
+
+.output{
+  flex-grow: 1;
+  border: 1px dotted gray;
+}
