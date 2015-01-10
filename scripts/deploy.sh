@@ -62,10 +62,11 @@ gcloud --project $PROJECT preview app deploy --version $VERSION --project $PROJE
 
 
 echo -e "\n*** SETTING DEFAULT VERSION ***\n"
-if [ "$VERSION" == "$GIT_CLEAN_VERSION" ]
+if [ "$VERSION" != "$GIT_CLEAN_VERSION" ]
 then
-  gcloud --project $PROJECT preview app modules set-default --version $VERSION --project $PROJECT default $*
-else
-  echo "WARNING: Default version update skipped due to version '$VERSION' != '$GIT_CLEAN_VERSION'"
   echo
+  echo "WARNING: Version '$VERSION' != '$GIT_CLEAN_VERSION'"
+  echo
+else
+gcloud --project $PROJECT preview app modules set-default --version $VERSION --project $PROJECT default $*
 fi
