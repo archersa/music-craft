@@ -15,3 +15,7 @@ cron:
   url: /api/delete-instance
   schedule: 'every sat,sun 21:00'
   timezone: America/Los_Angeles
+- description: Daily extra instance deletions
+  url: /api/delete-instance
+  schedule: 'every 2 hours from 23:00 to 03:00'
+  timezone: America/Los_Angeles
