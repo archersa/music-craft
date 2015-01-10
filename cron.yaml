@@ -1,0 +1,17 @@
+cron:
+- description: Weekday mc instance creation
+  url: /api/create-instance
+  schedule: 'every mon,tue,wed,thu,fri 15:00'
+  timezone: America/Los_Angeles
+- description: Weekday mc instance deletion
+  url: /api/delete-instance
+  schedule: 'every mon,tue,wed,thu,fri 21:00'
+  timezone: America/Los_Angeles
+- description: Weekend mc instance creation
+  url: /api/create-instance
+  schedule: 'every sat,sun 08:00'
+  timezone: America/Los_Angeles
+- description: Weekend mc instance deletion
+  url: /api/delete-instance
+  schedule: 'every sat,sun 21:00'
+  timezone: America/Los_Angeles
