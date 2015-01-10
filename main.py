@@ -105,6 +105,8 @@ class CreateInstanceHandler(MyHandler):
     if result.status_code == 200:
       self.response.write('OK. Instance created.\n\n')
     else:
+      logging.error('RESPONSE ERROR CODE: {}'.format(result.status_code))
+      logging.error('RESPONSE BODY:\n{}'.format(result.content))
       self.response.status_int = result.status_code
       self.response.write('RESPONSE ERROR CODE:\n{}\n\n'.format(result.status_code))
       self.response.write('RESPONSE BODY:\n{}\n\n'.format(result.content))
@@ -142,6 +144,8 @@ class DeleteInstanceHandler(MyHandler):
     if result.status_code == 200:
       self.response.write('OK. Instance DELETED.\n\n')
     else:
+      logging.error('RESPONSE ERROR CODE: {}'.format(result.status_code))
+      logging.error('RESPONSE BODY:\n{}'.format(result.content))
       self.response.status_int = result.status_code
       self.response.write('RESPONSE ERROR CODE:\n{}\n\n'.format(result.status_code))
       self.response.write('RESPONSE BODY:\n{}\n\n'.format(result.content))
