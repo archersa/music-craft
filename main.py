@@ -2,6 +2,7 @@ from google.appengine.api import app_identity
 from google.appengine.api import urlfetch
 
 import json
+import logging
 import webapp2
 
 
@@ -32,7 +33,21 @@ class PingHandler(webapp2.RequestHandler):
     self.response.write('OK.')
 
 
-class CreateInstanceHandler(webapp2.RequestHandler):
+class MyHandler(webapp2.RequestHandler):
+
+  def get(self):
+    if self.request.headers.get('X-AppEngine-Cron') != 'true':
+      logging.error('Non-cron attempt to GET ' + self.request.url)
+      logging.error('Headers {}'.format(self.request.headers))
+      self.response.status_int = 405
+      self.response.headers['Content-Type'] = 'text/plain'
+      self.response.write('Only cron allowed to perform GET request')
+      return
+    self.post()
+
+
+class CreateInstanceHandler(MyHandler):
+
   def post(self):
     payload = {
       'name': INSTANCE,
@@ -99,7 +114,8 @@ class CreateInstanceHandler(webapp2.RequestHandler):
     self.response.write('REQUEST PAYLOAD:\n{}\n\n\n'.format(pretty_payload))
 
 
-class DeleteInstanceHandler(webapp2.RequestHandler):
+class DeleteInstanceHandler(MyHandler):
+
   def post(self):
     payload = {
     }
