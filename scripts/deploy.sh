@@ -2,8 +2,6 @@
 #
 set -ue
 
-PROJECT=sauer-cloud
-
 GIT_CLEAN_VERSION=$(git log -1 --pretty=format:%H)
 GIT_VERSION="$GIT_CLEAN_VERSION"
 if [ -n "$(git status --porcelain)" ]
@@ -42,6 +40,8 @@ SCRIPTS_DIR=$( dirname $0 )
 ROOT_DIR=$( dirname $SCRIPTS_DIR )
 
 VERSION=$(get_version $*)
+PROJECT=$(gcloud config list project --format text | sed 's/^core.project: *//')
+
 echo
 echo "Deploying:"
 echo " - version: $VERSION"
@@ -54,11 +54,11 @@ echo "  https://console.developers.google.com/project/${PROJECT}/appengine/versi
 
 
 echo -e "\n*** CANCELLING ANY PENDING DEPLOYMENTS (just in case) ***\n"
-gcloud --project $PROJECT preview app modules cancel-deployment --version $VERSION --project $PROJECT default $*
+gcloud preview app modules cancel-deployment --version $VERSION default $*
 
 
 echo -e "\n*** DEPLOYING ***\n"
-gcloud --project $PROJECT preview app deploy --version $VERSION --project $PROJECT $* .
+gcloud preview app deploy --version $VERSION $* .
 
 
 echo -e "\n*** SETTING DEFAULT VERSION ***\n"
@@ -68,5 +68,5 @@ then
   echo "WARNING: Version '$VERSION' != '$GIT_CLEAN_VERSION'"
   echo
 else
-gcloud --project $PROJECT preview app modules set-default --version $VERSION --project $PROJECT default $*
+gcloud preview app modules set-default --version $VERSION default $*
 fi

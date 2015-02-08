@@ -2,9 +2,7 @@
 #
 set -ue
 
-PROJECT=sauer-cloud
-
-gcloud --project $PROJECT preview app run \
+gcloud preview app run \
   --host localhost \
   --admin-host localhost \
   . $*
