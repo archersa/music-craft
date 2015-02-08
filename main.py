@@ -14,7 +14,7 @@ ZONE = 'us-central1-a'
 INSTANCE = 'mc'
 DISK = 'mc'
 NETWORK = 'mc'
-MACHINE_TYPE='g1-small'
+DEFAULT_MACHINE_TYPE='g1-small'
 STARTUP_SCRIPT_URL='gs://sauer-cloud/mc-startup-script.sh'
 SERVICE_ACCOUNT_EMAIL = app_identity.get_service_account_name()
 
@@ -24,7 +24,6 @@ PROJECT_ZONE_URL = PROJECT_URL + '/zones/' + ZONE
 PROJECT_GLOBAL_URL = PROJECT_URL + '/global'
 DISK_URL = PROJECT_ZONE_URL + '/disks/' + DISK
 INSTANCES_URL = PROJECT_ZONE_URL + '/instances'
-MACHINE_TYPE_URL = PROJECT_ZONE_URL + '/machineTypes/' + MACHINE_TYPE
 NETWORK_URL = PROJECT_GLOBAL_URL + '/networks/' + NETWORK
 
 class PingHandler(webapp2.RequestHandler):
@@ -49,9 +48,11 @@ class MyHandler(webapp2.RequestHandler):
 class CreateInstanceHandler(MyHandler):
 
   def post(self):
+    machine_type = self.request.POST.get('machine-type', DEFAULT_MACHINE_TYPE)
+    machine_type_url = PROJECT_ZONE_URL + '/machineTypes/' + machine_type
     payload = {
       'name': INSTANCE,
-      'machineType': MACHINE_TYPE_URL,
+      'machineType': machine_type_url,
       'disks': [{
         'type': 'PERSISTENT',
         'boot': True,

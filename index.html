@@ -7,19 +7,21 @@
 
     <div class="content">
 
-      <ul class="links">
-        <li>
-          <form action="/api/create-instance" method="post" target="output">
-            <input type="submit" value="/api/create-instance">
-          </form>
-        </li>
-        <li>
-          <form action="/api/delete-instance" method="post" target="output">
-            <input type="submit" value="/api/delete-instance">
-          </form>
-        </li>
-      </ul>
+      <h2>Create instance</h2>
+      <form action="/api/create-instance" method="post" target="output">
+        <select name="machine-type" size="2">
+          <option value="g1-small" selected>g1-small</option>
+          <option value="n1-standard-1">n1-standard-1</option>
+        </select>
+        <input type="submit" value="/api/create-instance">
+      </form>
 
+      <h2>Delete instance</h2>
+      <form action="/api/delete-instance" method="post" target="output">
+        <input type="submit" value="/api/delete-instance">
+      </form>
+
+      <h2>Server output</h2>
       <iframe name="output" class="output" src="/api/ping"></iframe>
 
     </div>
